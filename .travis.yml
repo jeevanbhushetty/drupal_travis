@@ -1,0 +1,19 @@
+language: php
+sudo: false
+
+php:
+  - 5.6
+
+mysql:
+  database: drupal
+  username: root
+  encoding: utf8
+
+before_install:
+  - composer self-update
+
+install:
+  - export PATH="$HOME/.composer/vendor/bin:$PATH"
+  - composer global require drush/drush:6.*
+  - phpenv rehash
+  - mysql -u root -e "CREATE DATABASE drupal; CREATE USER 'drupal'@'localhost' IDENTIFIED BY 'drupal'; GRANT ALL ON drupal.* TO 'drupal'@'localhost';"
