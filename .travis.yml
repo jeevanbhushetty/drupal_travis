@@ -6,15 +6,15 @@ php:
 
 before_install:
   - composer self-update
+  - chmod +x gradlew
 
 install:
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
-  - composer global require drush/drush:dev-master
+  - composer global require drush/drush
   - phpenv rehash
   - mysql -u root -e "CREATE DATABASE drupal; CREATE USER 'drupal'@'localhost' IDENTIFIED BY 'drupal'; GRANT ALL ON drupal.* TO 'drupal'@'localhost';"
   #- drush --verbose site-install --db-url=mysql://root:@127.0.0.1/drupal --yes
   # Import config for our pseudo install
-  - drush --verbose config-import active --yes
   - cd ./tests/behat
   - composer install
   - cd ../../
