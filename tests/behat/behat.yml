@@ -20,4 +20,4 @@ default:
       blackbox: ~
       api_driver: "drupal"
       drupal:
-        drupal_root: '/Applications/MAMP/htdocs/d7'
+        drupal_root: '/var/www/d7'
