@@ -16,9 +16,8 @@ install:
   # Import config for our pseudo install
   - cd ./tests/behat
   - composer install
-  - cd ../../
 
 script:
-  - echo "hello"
+  - bin/behat
 
 
