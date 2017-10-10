@@ -1,0 +1,23 @@
+default:
+  suites:
+    default:
+      paths:
+        - %paths.base%/features
+      contexts:
+        - FeatureContext
+        - Drupal\DrupalExtension\Context\DrupalContext
+        - Drupal\DrupalExtension\Context\MessageContext
+        - Drupal\DrupalExtension\Context\DrushContext
+        - Drupal\DrupalExtension\Context\MinkContext
+  extensions:
+    Behat\MinkExtension:
+      base_url: http://127.0.0.1/
+      goutte: ~
+      selenium2:
+        browser: chrome
+        wd_host: localhost:4444/wd/hub
+    Drupal\DrupalExtension:
+      blackbox: ~
+      api_driver: "drupal"
+      drupal:
+        drupal_root: '/Applications/MAMP/htdocs/d7'

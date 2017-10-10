@@ -9,3 +9,5 @@ sites/*/private
 docroot/files
 docroot/sites/*/files
 docroot/sites/*/private
+tests/behat/bin
+tests/behat/vendor
