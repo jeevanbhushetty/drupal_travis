@@ -44,7 +44,7 @@ install:
   - curl -OL https://github.com/drush-ops/drush-launcher/releases/download/0.4.2/drush.phar
   - chmod +x drush.phar
   - sudo mv drush.phar /usr/local/bin/drush
-  - drush self-update
+  - sudo drush self-update
   - drush status
   - phpenv rehash
 
