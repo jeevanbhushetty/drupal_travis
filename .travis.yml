@@ -41,12 +41,10 @@ install:
   # see: https://github.com/drush-ops/drush#install---composer
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
   # Install Drush
-  - cd ~
-  - git clone https://github.com/drush-ops/drush.git drush
-  - cd ~/drush
-  - composer install
-  - export PS1=$PATH:~/drush/
-  - source $HOME/.bash_profile
+  - curl -OL https://github.com/drush-ops/drush-launcher/releases/download/0.4.2/drush.phar
+  - chmod +x drush.phar
+  - sudo mv drush.phar /usr/local/bin/drush
+  - drush self-update
   - drush status
   - phpenv rehash
 
