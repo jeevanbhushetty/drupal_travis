@@ -43,7 +43,7 @@ install:
   - source $HOME/.bashrc
 
   # Install Drush
-  - COMPOSER_HOME=/opt/drush COMPOSER_BIN_DIR=/usr/local/bin COMPOSER_VENDOR_DIR=/opt/drush composer require drush/drush
+  - sudo COMPOSER_HOME=/var/lib/composer COMPOSER_BIN_DIR=/usr/local/bin COMPOSER_VENDOR_DIR=/var/lib/composer/vendor composer require drush/drush:dev-master
  # - composer global require drush/drush
   - drush status
   - phpenv rehash
