@@ -41,7 +41,8 @@ before_install:
  # - composer global require consolidation/cgr
   - sed -i '1i export PATH="$HOME/.config/composer/vendor/bin:$PATH"' $HOME/.bashrc
   - source $HOME/.bashrc
-  - composer global require drush/drush:dev-master
+  - rm -f ~/.drush/cache/download/*---updates.drupal.org-release-history-*
+  - composer global require drush/drush:^8.1
   - phpenv rehash
 
 install:
