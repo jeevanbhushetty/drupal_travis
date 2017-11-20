@@ -45,7 +45,9 @@ install:
   # see: https://github.com/drush-ops/drush#install---composer
   #- export PATH="$HOME/.composer/vendor/bin:$PATH"
   # Install Drush
-  - cd $HOME/.composer/vendor/
+  - cd /home/travis/.config/composer
+  - ls
+  - cd vendor
   - ls
   - cd drush
   - ls
