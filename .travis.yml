@@ -51,7 +51,9 @@ install:
   - ls
   - cd drush
   - ls
-  - alias drush=$HOME/.composer/vendor/drush/drush
+  - alias drush=/home/travis/.config/composer/vendor/drush/drush/drush
+  - cd $TRAVIS_BUILD_DIR
+  - ls
   - drush status
 
 # Create MySQL Database
