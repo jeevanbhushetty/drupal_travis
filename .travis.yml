@@ -34,11 +34,11 @@ mysql:
 
 before_install:
   - sudo apt-get update > /dev/null
-  - sed -i '1i export PATH="$HOME/.composer/vendor/bin:$PATH"' $HOME/.bashrc
-  - source $HOME/.bashrc
   - composer self-update
  # - composer global require drush/drush:dev-master
   - composer global require consolidation/cgr
+  - sed -i '1i export PATH="$HOME/.composer/vendor/bin:$PATH"' $HOME/.bashrc
+  - source $HOME/.bashrc
   - cgr drush/drush
   - phpenv rehash
 
