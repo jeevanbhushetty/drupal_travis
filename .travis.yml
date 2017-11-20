@@ -45,6 +45,11 @@ install:
   # see: https://github.com/drush-ops/drush#install---composer
   #- export PATH="$HOME/.composer/vendor/bin:$PATH"
   # Install Drush
+  - cd alias drush=$HOME/.composer/vendor/bin
+  - ls
+  - cd drush
+  - ls
+  - alias drush=$HOME/.composer/vendor/bin/drush/drush/drush
   - drush status
 
 # Create MySQL Database
