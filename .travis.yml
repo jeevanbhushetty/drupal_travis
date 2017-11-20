@@ -59,4 +59,4 @@ script:
 
   - cd $TRAVIS_BUILD_DIR/tests/behat
   - composer install
-  - bin/behat --config=ci
+  - bin/behat --profile=ci
