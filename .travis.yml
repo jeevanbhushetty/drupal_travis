@@ -37,7 +37,9 @@ before_install:
   - sed -i '1i export PATH="$HOME/.composer/vendor/bin:$PATH"' $HOME/.bashrc
   - source $HOME/.bashrc
   - composer self-update
-  - composer global require drush/drush:dev-master
+ # - composer global require drush/drush:dev-master
+  - composer global require consolidation/cgr
+  - cgr drush/drush
   - phpenv rehash
 
 install:
@@ -45,15 +47,6 @@ install:
   # see: https://github.com/drush-ops/drush#install---composer
   #- export PATH="$HOME/.composer/vendor/bin:$PATH"
   # Install Drush
-  - cd /home/travis/.config/composer
-  - ls
-  - cd vendor
-  - ls
-  - cd drush
-  - ls
-  - alias drush=/home/travis/.config/composer/vendor/drush/drush/drush
-  - cd $TRAVIS_BUILD_DIR
-  - ls
   - drush status
 
 # Create MySQL Database
