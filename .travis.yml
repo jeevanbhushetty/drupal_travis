@@ -52,7 +52,7 @@ install:
   - mysql -e 'create database drupal;'
   - mysql -e 'show databases'
   - cd $TRAVIS_BUILD_DIR
-  - drush --verbose --yes site-install --db-url="mysql://root:@127.0.0.1/drupal"
+  - drush --verbose --yes site-install install_configure_form.update_notifications.update_status_module=0 --db-url="mysql://root:@127.0.0.1/drupal"
 
   # Import config for our pseudo install
   - drush --verbose config-import active --yes
