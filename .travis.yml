@@ -42,9 +42,7 @@ install:
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
   # Install Drush
   - composer global require drush/drush
-  - curl -OL https://github.com/drush-ops/drush-launcher/releases/download/0.4.2/drush.phar
-  - chmod +x drush.phar
-  - sudo mv drush.phar /usr/local/bin/drush
+  - $COMPOSER_BIN_DIR/drush status
   - phpenv rehash
 
 # Create MySQL Database
@@ -55,7 +53,7 @@ install:
   - which composer
   - echo $TRAVIS_BUILD_DIR
   - echo $TRAVIS_PHP_VERSION
-  - cd $TRAVIS_BUILD_DIR && drush --verbose site-install --db-url=mysql://root:@127.0.0.1/drupal --yes
+  - cd $TRAVIS_BUILD_DIR && $COMPOSER_BIN_DIR/drush --verbose site-install --db-url=mysql://root:@127.0.0.1/drupal --yes
 
   # Import config for our pseudo install
   - drush --verbose config-import active --yes
