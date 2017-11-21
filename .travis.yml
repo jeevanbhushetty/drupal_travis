@@ -5,33 +5,40 @@ php:
 
 before_install:
 
-#  # Enable $_ENV variables in PHP.
-#  - echo 'variables_order = "EGPCS"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
-#  # Ensure that always_populate_raw_post_data PHP setting: Not set to -1 does not happen.
-#  - echo "always_populate_raw_post_data = -1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-#  # Set PHP memory limit to something more realistic.
-#  - echo "memory_limit=512M" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+  # Update and config composer
   - sudo apt-get update > /dev/null
   - composer self-update
+
+  # Create global path
   - sed -i '1i export PATH="$HOME/.config/composer/vendor/bin:$PATH"' $HOME/.bashrc
   - source $HOME/.bashrc
+
+  # Clear Drush version history to download latest.
   - rm -f ~/.drush/cache/download/*---updates.drupal.org-release-history-*
+
+  # Install Drush globally
   - composer global require drush/drush:^8.1
+
+  # Install test dependencies
   - cd $TRAVIS_BUILD_DIR/tests/behat && composer install
   - phpenv rehash
 
 install:
 
-  - drush status
   # Create MySQL Database
   - mysql -e 'create database drupal;'
+
   - cd $TRAVIS_BUILD_DIR
+
+  # Install Drupal Site
   - /usr/bin/env PHP_OPTIONS="-d sendmail_path=`which true`" drush --verbose --yes site-install --db-url="mysql://root:@127.0.0.1/drupal"
   - drush cc all --yes
 
   # Install and configure Apache and PHP-FPM.
   - sudo apt-get install apache2 libapache2-mod-fastcgi
   - sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf
+
+  # Enable apache mod
   - sudo a2enmod rewrite actions fastcgi alias
   - echo "cgi.fix_pathinfo = 1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - ~/.phpenv/versions/$(phpenv version-name)/sbin/php-fpm
@@ -39,6 +46,6 @@ install:
 
 script:
 
-#  - cd $TRAVIS_BUILD_DIR/tests/behat
-#  - composer install
+  # Run Behat test
+  - cd $TRAVIS_BUILD_DIR/tests/behat
   - bin/behat --profile=ci
