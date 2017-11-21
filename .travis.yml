@@ -1,27 +1,3 @@
-#language: php
-#sudo: true
-#
-#php:
-#  - 5.6
-#
-#before_install:
-#  - composer self-update
-#
-#install:
-#  - export PATH="$HOME/.composer/vendor/bin:$PATH"
-#  - composer global require drush/drush
-#  - phpenv rehash
-#  - mysql -u root -e "CREATE DATABASE drupal; CREATE USER 'drupal'@'localhost' IDENTIFIED BY 'drupal'; GRANT ALL ON drupal.* TO 'drupal'@'localhost';"
-#  #- drush --verbose site-install --db-url=mysql://root:@127.0.0.1/drupal --yes
-#  # Import config for our pseudo install
-#  - cd ./tests/behat
-#  - composer install
-#
-#script:
-#  - pwd
-#  - ls
-#  - bin/behat
-
 language: php
 
 php:
@@ -29,20 +5,19 @@ php:
 
 before_install:
 
-  # Enable $_ENV variables in PHP.
-  - echo 'variables_order = "EGPCS"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
-  # Ensure that always_populate_raw_post_data PHP setting: Not set to -1 does not happen.
-  - echo "always_populate_raw_post_data = -1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-  # Set PHP memory limit to something more realistic.
-  - echo "memory_limit=512M" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+#  # Enable $_ENV variables in PHP.
+#  - echo 'variables_order = "EGPCS"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+#  # Ensure that always_populate_raw_post_data PHP setting: Not set to -1 does not happen.
+#  - echo "always_populate_raw_post_data = -1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+#  # Set PHP memory limit to something more realistic.
+#  - echo "memory_limit=512M" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
   - sudo apt-get update > /dev/null
   - composer self-update
- # - composer global require drush/drush:dev-master
- # - composer global require consolidation/cgr
   - sed -i '1i export PATH="$HOME/.config/composer/vendor/bin:$PATH"' $HOME/.bashrc
   - source $HOME/.bashrc
   - rm -f ~/.drush/cache/download/*---updates.drupal.org-release-history-*
   - composer global require drush/drush:^8.1
+  - cd $TRAVIS_BUILD_DIR/tests/behat && composer install
   - phpenv rehash
 
 install:
@@ -50,7 +25,6 @@ install:
   - drush status
   # Create MySQL Database
   - mysql -e 'create database drupal;'
-  - mysql -e 'show databases'
   - cd $TRAVIS_BUILD_DIR
   - /usr/bin/env PHP_OPTIONS="-d sendmail_path=`which true`" drush --verbose --yes site-install --db-url="mysql://root:@127.0.0.1/drupal"
   - drush cc all --yes
@@ -65,6 +39,6 @@ install:
 
 script:
 
-  - cd $TRAVIS_BUILD_DIR/tests/behat
-  - composer install
+#  - cd $TRAVIS_BUILD_DIR/tests/behat
+#  - composer install
   - bin/behat --profile=ci
