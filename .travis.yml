@@ -3,6 +3,10 @@ language: php
 php:
   - 5.6
 
+env:
+  global:
+    - TEST_BEHAT_PATH: $TRAVIS_BUILD_DIR/tests/behat
+
 before_install:
 
   # Update and config composer
@@ -38,14 +42,17 @@ install:
   - sudo apt-get install apache2 libapache2-mod-fastcgi
   - sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf
 
-  # Enable apache mod
+  # Enable module
   - sudo a2enmod rewrite actions fastcgi alias
   - echo "cgi.fix_pathinfo = 1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - ~/.phpenv/versions/$(phpenv version-name)/sbin/php-fpm
+
+  # Restart apache to apply changes
   - sudo service apache2 restart
 
 script:
 
   # Run Behat test
+  - echo $TEST_BEHAT_PATH
   - cd $TRAVIS_BUILD_DIR/tests/behat
   - bin/behat --profile=ci
