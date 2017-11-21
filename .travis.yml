@@ -24,7 +24,7 @@ before_install:
   - composer global require drush/drush:^8.1
 
   # Install test dependencies
-  - cd $TRAVIS_BUILD_DIR/tests/behat && composer install
+  - cd $TEST_BEHAT_PATH && composer install
   - phpenv rehash
 
 install:
@@ -53,6 +53,4 @@ install:
 script:
 
   # Run Behat test
-  - echo $TEST_BEHAT_PATH
-  - cd $TRAVIS_BUILD_DIR/tests/behat
-  - bin/behat --profile=ci
+  - cd $TEST_BEHAT_PATH && bin/behat --profile=ci
