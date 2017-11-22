@@ -6,7 +6,7 @@ php:
 env:
   global:
     - TEST_BEHAT_PATH: $TRAVIS_BUILD_DIR/tests/behat
-  TRAVIS: true
+    - TRAVIS: TRUE
 
 before_install:
 
