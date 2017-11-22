@@ -54,4 +54,6 @@ install:
 script:
 
   # Run Behat test
+  - echo "var_dump(getenv()); var_dump($_ENV);" >> $TRAVIS_BUILD_DIR/test.php
+  - php $TRAVIS_BUILD_DIR/test.php
   - cd $TEST_BEHAT_PATH && bin/behat --profile=ci
