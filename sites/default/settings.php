@@ -244,6 +244,10 @@
  *   );
  * @endcode
  */
+
+  var_dump($_ENV);
+  var_dump(getenv('TRAVIS'));
+
   if (!getenv('TRAVIS')) {
     $databases = array(
       'default' =>
