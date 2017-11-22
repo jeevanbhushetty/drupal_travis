@@ -244,7 +244,7 @@
  *   );
  * @endcode
  */
-if (isset($_ENV['TRAVIS'])) {
+if (empty($_ENV['TRAVIS'])) {
   $databases = array(
     'default' =>
       array(
