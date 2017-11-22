@@ -244,7 +244,6 @@
  *   );
  * @endcode
  */
-if (empty($_ENV['TRAVIS'])) {
   $databases = array(
     'default' =>
       array(
@@ -260,7 +259,11 @@ if (empty($_ENV['TRAVIS'])) {
           ),
       ),
   );
-}
+
+  if (!empty($_ENV['TRAVIS'])) {
+    $databases = array();
+  }
+
 /**
  * Access control for update.php script.
  *
