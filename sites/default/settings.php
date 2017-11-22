@@ -244,24 +244,22 @@
  *   );
  * @endcode
  */
-  $databases = array(
-    'default' =>
-      array(
-        'default' =>
-          array(
-            'database' => 'd7',
-            'username' => 'root',
-            'password' => 'root',
-            'host' => 'localhost',
-            'port' => '',
-            'driver' => 'mysql',
-            'prefix' => '',
-          ),
-      ),
-  );
-
   if (!empty($TRAVIS)) {
-    $databases = array();
+    $databases = array(
+      'default' =>
+        array(
+          'default' =>
+            array(
+              'database' => 'd7',
+              'username' => 'root',
+              'password' => 'root',
+              'host' => 'localhost',
+              'port' => '',
+              'driver' => 'mysql',
+              'prefix' => '',
+            ),
+        ),
+    );
   }
 
 /**
