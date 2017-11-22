@@ -26,7 +26,7 @@ before_install:
 
   # Install test dependencies
   - cd $TEST_BEHAT_PATH && composer install
-  - phpenv config-add travis.php.ini
+  - phpenv config-add $TRAVIS_BUILD_DIR/travis.php.ini
   - phpenv rehash
 
 install:
