@@ -244,22 +244,23 @@
  *   );
  * @endcode
  */
-$databases = array (
-  'default' => 
-  array (
-    'default' => 
-    array (
-      'database' => 'd7_travis',
-      'username' => 'root',
-      'password' => 'root',
-      'host' => 'localhost',
-      'port' => '',
-      'driver' => 'mysql',
-      'prefix' => '',
-    ),
-  ),
-);
-
+if (isset($_ENV['TRAVIS'])) {
+  $databases = array(
+    'default' =>
+      array(
+        'default' =>
+          array(
+            'database' => 'd7',
+            'username' => 'root',
+            'password' => 'root',
+            'host' => 'localhost',
+            'port' => '',
+            'driver' => 'mysql',
+            'prefix' => '',
+          ),
+      ),
+  );
+}
 /**
  * Access control for update.php script.
  *
@@ -290,7 +291,7 @@ $update_free_access = FALSE;
  *   $drupal_hash_salt = file_get_contents('/home/example/salt.txt');
  *
  */
-$drupal_hash_salt = '40hUAdFGiAVLNhiDYOV2CaNfmTq4vZ3svdBLSp3kRGo';
+$drupal_hash_salt = 'tioR0WPLPwhKnrY1tyHJo5SKlisY2437UyyqCZGlpW8';
 
 /**
  * Base URL (optional).
