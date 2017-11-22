@@ -260,7 +260,7 @@
       ),
   );
 
-  if (!empty($_ENV['TRAVIS'])) {
+  if (!empty($TRAVIS)) {
     $databases = array();
   }
 
