@@ -246,9 +246,8 @@
  */
 
   var_dump($_ENV);
-  var_dump(getenv('TRAVIS'));
 
-  if (!getenv('TRAVIS')) {
+  if (!getenv('ILAO_TRAVIS')) {
     $databases = array(
       'default' =>
         array(
