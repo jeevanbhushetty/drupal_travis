@@ -8,6 +8,9 @@ env:
     - TEST_BEHAT_PATH: $TRAVIS_BUILD_DIR/tests/behat
     - ILAO_TRAVIS: TRUE
 
+addons:
+  chrome: stable
+  
 before_install:
 
   # Update and config composer
