@@ -3,27 +3,36 @@ language: php
 php:
   - 5.6
 
+env:
+  global:
+    - TEST_BEHAT_PATH: $TRAVIS_BUILD_DIR/tests/behat
+    - ILAO_TRAVIS: TRUE
+
 before_install:
+
+  # Update and config composer
   - sudo apt-get update > /dev/null
   - composer self-update
- # - composer global require drush/drush:dev-master
- # - composer global require consolidation/cgr
+
+  # Create global path
   - sed -i '1i export PATH="$HOME/.config/composer/vendor/bin:$PATH"' $HOME/.bashrc
   - source $HOME/.bashrc
-  - composer global require drush/drush:dev-master
+
+  # Clear Drush version history to download latest.
+  - rm -f ~/.drush/cache/download/*---updates.drupal.org-release-history-*
+
+  # Install Drush globally
+  - composer global require drush/drush:^8.1
+
+  # Install test dependencies
+  - cd $TEST_BEHAT_PATH && composer install
+ # - phpenv config-add $TRAVIS_BUILD_DIR/travis.php.ini
   - phpenv rehash
 
 install:
 
-  - drush status
   # Create MySQL Database
   - mysql -e 'create database drupal;'
-  - mysql -e 'show databases'
-  - cd $TRAVIS_BUILD_DIR
-  - drush --verbose --yes site-install standard --db-url="mysql://root:@127.0.0.1/drupal"
-
-  # Import config for our pseudo install
-  - drush --verbose config-import active --yes
 
 before_script:
   - cd ~/
@@ -36,5 +45,19 @@ before_script:
 
 script:
 
-  - cd $TRAVIS_BUILD_DIR/tests/behat && composer install
-  - bin/behat
+  # Install Drupal Site
+  - /usr/bin/env PHP_OPTIONS="-d sendmail_path=`which true`" drush --verbose --yes site-install --db-url="mysql://root:@127.0.0.1/drupal"
+  - drush cc all --yes
+
+  # Install and configure Apache and PHP-FPM.
+  - sudo apt-get install apache2 libapache2-mod-fastcgi
+  - sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf
+
+  # Enable module
+  - sudo a2enmod rewrite actions fastcgi alias
+  - echo "cgi.fix_pathinfo = 1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - ~/.phpenv/versions/$(phpenv version-name)/sbin/php-fpm
+
+  # Restart apache to apply changes
+  - sudo service apache2 restart
+  - cd $TEST_BEHAT_PATH && bin/behat --profile=ci
