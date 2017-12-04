@@ -41,10 +41,10 @@ before_script:
   - cd ~/
   - sh -e /etc/init.d/xvfb start
   - export DISPLAY=:99.0
-  - wget http://selenium-release.storage.googleapis.com/3.1/selenium-server-standalone-3.1.0.jar
-  - wget https://chromedriver.storage.googleapis.com/2.9/chromedriver_linux64.zip && unzip chromedriver_linux64.zip
+  - wget http://selenium-release.storage.googleapis.com/3.3/selenium-server-standalone-3.3.1.jar
+  - wget https://chromedriver.storage.googleapis.com/2.29/chromedriver_linux64.zip && unzip chromedriver_linux64.zip
   - ls
-  - java -jar -Dwebdriver.chrome.driver=chromedriver selenium-server-standalone-3.1.0.jar > /dev/null &
+  - java -jar -Dwebdriver.chrome.driver=chromedriver selenium-server-standalone-3.8.1.jar > /dev/null &
   - sleep 5
 
 script:
