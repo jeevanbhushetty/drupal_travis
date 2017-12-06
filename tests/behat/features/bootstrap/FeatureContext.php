@@ -7,7 +7,7 @@ use Behat\Gherkin\Node\TableNode;
 /**
  * Defines application features from the specific context.
  */
-class FeatureContext implements Context
+class FeatureContext extends \Drupal\DrupalExtension\Context\RawDrupalContext
 {
     /**
      * Initializes context.
@@ -19,4 +19,12 @@ class FeatureContext implements Context
     public function __construct()
     {
     }
+
+  /**
+   * @Given /^I print current page content$/
+   */
+  public function iPrintCurrentPageContent() {
+    print($this->getSession()->getCurrentUrl());
+    print_r($this->getSession()->getPage()->getText());
+  }
 }
