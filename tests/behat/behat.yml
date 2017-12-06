@@ -11,7 +11,7 @@ default:
         - Drupal\DrupalExtension\Context\MinkContext
   extensions:
     Behat\MinkExtension:
-      base_url: http://127.0.0.1/
+      base_url: http://127.0.0.1/drupal_travis
       goutte: ~
       selenium2:
         browser: chrome
