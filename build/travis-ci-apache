@@ -1,9 +1,9 @@
 <VirtualHost *:80>
   # [...]
 
-  DocumentRoot $DOCROOT
+  DocumentRoot {$DOCROOT}
 
-  <Directory $DOCROOT>
+  <Directory {$DOCROOT}>
     Options FollowSymLinks MultiViews ExecCGI
     AllowOverride All
     Require all granted
