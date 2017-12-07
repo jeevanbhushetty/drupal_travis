@@ -7,6 +7,7 @@ env:
   global:
     - TEST_BEHAT_PATH: $TRAVIS_BUILD_DIR/tests/behat
     - ILAO_TRAVIS: TRUE
+    - DOCROOT: $TRAVIS_BUILD_DIR
 
 addons:
   chrome: stable

@@ -1,9 +1,9 @@
 <VirtualHost *:80>
   # [...]
 
-  DocumentRoot %TRAVIS_BUILD_DIR%
+  DocumentRoot %DOCROOT%
 
-  <Directory "%TRAVIS_BUILD_DIR%/">
+  <Directory "%DOCROOT%/">
     Options FollowSymLinks MultiViews ExecCGI
     AllowOverride All
     Require all granted
