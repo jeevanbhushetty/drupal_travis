@@ -54,20 +54,22 @@ script:
   - cd $TRAVIS_BUILD_DIR
   - /usr/bin/env PHP_OPTIONS="-d sendmail_path=`which true`" drush --verbose --yes site-install --db-url="mysql://root:@127.0.0.1/drupal"
   - drush cc all --yes
-  - $TRAVIS_BUILD_DIR/travis-scripts/apache2-setup.sh
-#  # Install and configure Apache and PHP-FPM.
-#  - sudo apt-get install apache2 libapache2-mod-fastcgi
-#  - sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf
-#  - sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.d/www.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.d/www.conf
-#  - sudo a2enmod rewrite actions fastcgi alias
-#  - echo "cgi.fix_pathinfo = 1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-#  - sudo sed -i -e "s,www-data,travis,g" /etc/apache2/envvars
-#  - sudo chown -R travis:travis /var/lib/apache2/fastcgi
-#  - ~/.phpenv/versions/$(phpenv version-name)/sbin/php-fpm
-#
-#  # configure apache virtual hosts
-#  - sudo cp -f build/travis-ci-apache /etc/apache2/sites-available/000-default.conf
-#  - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/000-default.conf
-#  - sudo service apache2 restart
+#  - $TRAVIS_BUILD_DIR/travis-scripts/apache2-setup.sh
+  # Install and configure Apache and PHP-FPM.
+  - sudo apt-get install apache2 libapache2-mod-fastcgi
+  - cat ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf.default
+  - cat ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.d/www.conf.default
+  - sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf
+  - sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.d/www.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.d/www.conf
+  - sudo a2enmod rewrite actions fastcgi alias
+  - echo "cgi.fix_pathinfo = 1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - sudo sed -i -e "s,www-data,travis,g" /etc/apache2/envvars
+  - sudo chown -R travis:travis /var/lib/apache2/fastcgi
+  - ~/.phpenv/versions/$(phpenv version-name)/sbin/php-fpm
+
+  # configure apache virtual hosts
+  - sudo cp -f build/travis-ci-apache /etc/apache2/sites-available/000-default.conf
+  - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/000-default.conf
+  - sudo service apache2 restart
 
   - cd $TEST_BEHAT_PATH && bin/behat --profile=ci
